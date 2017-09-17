@@ -1,0 +1,238 @@
+Task 1**(FrequentElemFinder) 
+
+public class FrequentElemFinder {
+    public static void main(String[] args) {
+
+        int[] arr = new int[]{1, 2, 0, 4, 2, 5, 5, 0, 1, 0, 1 };
+
+        System.out.println(findFrequentElem(arr));
+    }
+
+    public static int findFrequentElem(int[] arr) {
+        int max = 0;
+        int elem = 0;
+        for (int i = 0; i < arr.length; i++) {
+            int count = 0;
+            for (int j = 0; j < arr.length; j++) {
+                if (arr[i] == arr[j]) {
+                    count++;
+                }
+                if (count > max) {
+                    max = count;
+                    elem = arr[i];
+                }
+            }
+        }
+        return elem;
+    }
+}
+
+Tasks 2** (CyclicShifter)
+
+public class CyclicShifter {
+    public static void main(String[] args) {
+        int[] array = new int[]{0, 1, 2, 3, 4};
+        		
+        cyclicShift(array, 2);
+    }
+
+    public static void cyclicShift(int[] array, int shift) {
+        int[] array1 = new int[array.length];
+        for (int i = 0; i < array.length; i++) {
+            int index = i + shift;
+            while (Math.abs(index) > array.length - 1 || index < 0) {
+                if (index > 0) {
+                    index -= array.length;
+                } else {
+                    index += array.length;
+                }
+            }
+            array1[index] = array[i];
+        }
+        System.out.println(Arrays.toString(array1));
+    }
+}
+
+Tasks **(SpiralCreator)
+
+//Для указанных в задаче данных код работает, для квадратной матрицы - без проблем.
+//А вот с прямоугольной возникают иногда проблемы как в этом примере.
+//Ответ: 1  2  3  4
+//       10 13 12 5 
+//       9  8  7  6
+//Если можно, подскажите, что не так.
+
+public class SpiralCreator {
+    public static void main(String[] args) {
+        int rows = 3;
+        int cols = 4;
+
+        if (rows <= 0 || cols <= 0){
+            throw new IllegalArgumentException("Numbers of rows and cols should be positive.");
+        }
+        createSpiral(rows, cols);
+    }
+
+    public static int[][] createSpiral(int rows, int cols) {
+        int fistRow = 0;
+        int firstCol = 0;
+        int lastRow = rows - 1;
+        int lastCol = cols - 1;
+        int count = 1;
+        int[][] arr = new int[rows][cols];
+
+        while (count <= rows * cols) {
+            for (int i = firstCol; i <= lastCol; i++) {
+                arr[fistRow][i] = count;
+                count += 1;
+            }
+            fistRow += 1;
+
+            for (int i = fistRow; i <= lastRow; i++) {
+                arr[i][lastCol] = count;
+                count += 1;
+            }
+            lastCol -= 1;
+
+            for (int i = lastCol; i >= firstCol; i--) {
+                arr[lastRow][i] = count;
+                count += 1;
+            }
+            lastRow -= 1;
+
+            for (int i = lastRow; i >= fistRow; i--) {
+                arr[i][firstCol] = count;
+                count += 1;
+            }
+            firstCol += 1;
+        }
+
+        for (int [] i : arr) {
+            for (int j : i) {
+                System.out.print(arr[i][j] + " ");
+                if (arr[i][j] < 10) {
+                    System.out.print(" ");
+                }
+            }
+            System.out.print("\n");
+        }
+        return arr;
+    }
+}
+
+
+
+
+
+Tasks**4 (PascalTriangleCreator)
+
+
+public class PascalTriangleCreator {
+    public static void main(String[] args) {
+        int n = 3;
+        createPascalTriangle(n);
+        if (n < 0) {
+            throw new IllegalArgumentException("Error: n < 0");
+        }
+    }
+
+    public static int[][] createPascalTriangle(int n) {
+        int row = n + 1;
+        int[][] arr = new int[row][row];
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < i + 1; j++) {
+                if (j == 0 || j == i) {
+                    arr[i][j] = 1;
+                    System.out.print(arr[i][j] + "\t");
+                } else {
+                    arr[i][j] = arr[i - 1][j] + arr[i - 1][j - 1];
+                    System.out.print(arr[i][j] + "\t");
+                }
+            }
+            System.out.println();
+        }
+        return arr;
+    }
+}
+
+
+VERSION 2.
+
+
+public class PascalTriangleCreator {
+
+    public static int createPascalTriangle(int i, int j) {
+        return (j == 0 || j == i) ? 1 : createPascalTriangle(i - 1, j - 1) + createPascalTriangle(i - 1, j);
+    }
+
+    public static void main(String[] args) {
+        for (int i = 0; i <= 3; i++) {
+            for (int j = 0; j <= i; j++) {
+                System.out.print(createPascalTriangle(i, j) + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+
+Tasks**5 (MatrixPacking)
+
+public class packMatrix{
+
+ 
+    public static void main(String[] args) {
+
+        int[][] matrix = {
+                {1, 0, 0, 2},
+                {0, 0, 0, 0},
+                {4, 0, 8, 0},
+                {9, 0, 1, 0}};
+        packMatrix(matrix);
+    }
+
+    public static int[][] packMatrix(int[][] matrix) {
+        int[][] newMatrix = new int[matrix.length][matrix[0].length];
+        int l = 0;
+        for (int i = 0; i < matrix.length; i++) {
+            int c = 0;
+            if (checkRow(matrix, i)) {
+                for (int j = 0; j < matrix[0].length; j++) {
+                    if (checkCol(matrix, j)) {
+                        newMatrix[l][c] = matrix[i][j];
+                        System.out.print(newMatrix[l][c] + "\t");
+                        c++;
+                    }
+                }
+                l++;
+                System.out.println();
+            }
+        }
+        return newMatrix;
+    }
+
+    public static boolean checkRow(int[][] matrix, int i) {
+        int counter = 0;
+        for (int j = 0; j < matrix[0].length; j++) {
+            if (matrix[i][j] == 0) {
+                counter++;
+            }
+            if (counter == matrix[i].length) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean checkCol(int[][] matrix, int j) {
+        int counter = 0;
+        for (int i = 0; i < matrix.length; i++) {
+            if (matrix[i][j] == 0) {
+                counter++;
+            }
+            if (counter == matrix.length) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
