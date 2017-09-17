@@ -1,0 +1,123 @@
+
+Task 8* (MatrixMaxSumRowFinder)
+
+public class MatrixMaxSumRowFinder {
+       public static void main(String[] args) {
+        int[][] array = new int[][]{
+                {0, 3, -2},
+                {2, 50, 3},
+                {-1, 5, 2}
+        };
+           //А что , если в массиве все числа отрицательные?      
+           //Выдает "0". Игрался с sum/max/if:
+		   //правильного ответа не получил.
+		   
+           if (array.length == 0) {
+            throw new IllegalArgumentException("Empty matrix.");
+        }
+
+       System.out.println("Row index is: " + findMaxSumRow(array));
+    }
+    public static int findMaxSumRow(int[][] matrix) {
+        int max = 0;
+        int index = 0;
+        for (int i = 0; i < matrix.length; i++) {
+            int sum = 0;
+            for (int j = 0; j < matrix[i].length; j++) {
+                sum = sum + matrix[i][j];
+            }
+            if (sum > max) {
+                max = sum;
+                index = i;
+            }
+        }
+        return index;
+    }
+}
+
+
+Task 9* (MatrixTransposer)
+
+
+public class MatrixTransposer {
+
+    public static void main(String[] args) {
+        int[][] matrix = new int[][]{
+                {1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {13, 14, 15, 16}
+        },
+                newMatrix;
+
+        System.out.println("Matrix: ");
+        newMatrix = transpose(matrix);
+        System.out.println("New matrix: ");
+        transpose(newMatrix);
+    }
+
+    public static void printMatrix(int[][] matrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static int[][] transpose(int[][] matrix) {
+        int[][] newMatrix = new int[matrix[0].length][matrix.length];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                newMatrix[j][i] = matrix[i][j];
+                System.out.print(newMatrix[j][i] + " ");
+            }
+            System.out.println();
+        }
+
+        return newMatrix;
+    }
+}
+
+
+Task 10* (IdentityMatrixChecker)
+
+
+public class IdentityMatrixChecker {
+    public static void main(String[] args) {
+        int[][] matrix = new int[][]{
+                {1, 0, 0},
+                {0, 1, 0},
+                {0, 0, 1, 2}
+        };
+
+        ptintMatrix(matrix);
+        System.out.println(isIdentity(matrix));
+    }
+
+    public static void ptintMatrix(int[][] matrix) {
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                if (matrix.length != matrix[i].length) {
+                    throw new IllegalArgumentException("Error. Matrix is not square.");
+                }
+                System.out.print(matrix[i][j] + "  ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static boolean isIdentity(int[][] matrix) {
+        
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                if ((i == j) && (matrix[i][j] != 1) || (i != j) && (matrix[i][j] != 0)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}
+
