@@ -1,0 +1,126 @@
+TASK 1**(DigitsPrinter)
+
+// Если я правильно понял,
+//вывод должен быть строкой.
+
+public class DigitsPrinter {
+
+    public static void main(String[] args) {
+        int n = -142792;
+
+        if (n < 0) {
+            System.out.print("- ");
+            n = -n;
+        }
+        String str = "";
+        do {
+            str = n % 10 + " " + str;
+            n /= 10;
+        } while (n != 0);
+
+        System.out.println(str);
+    }
+}
+
+
+TASK 2**(RadixPrinter)
+
+ public class RadixPrinter{ 
+  
+  public static void main(String[] args) {
+        int n = 147292;
+        int radix = 8;
+
+        if (n < 0 || radix < 2 || radix > 10){
+            throw new IllegalArgumentException("Input number or radix error.");
+        }
+        String message = "";
+        while (n != 0) {
+            message = n % radix + message;
+            n /= radix;
+        }
+        System.out.println(message);
+    }
+}
+
+TASK 3**(PrimesPrinter)
+
+	
+public class PrimesPrinter {
+    public static void main(String[] args) {
+        int from = 101;
+        int to = 110;
+        if (from > to) {
+            throw new IllegalArgumentException("Input Error.");
+        }
+        for (int i = from; i <= to; i++) {
+
+            boolean bool = true;
+            for (int j = 2; j < i; j++) {
+                if (i % j == 0) {
+                    bool = false;
+                    break;
+                }
+            }
+            if (bool && i > 0 && i != 1) System.out.println(i);
+        }
+    }
+}
+
+
+Task 4**(DigitsSumCalculator)
+
+public class DigitsSumCalculator {
+    public static void main(String[] args) {
+        int from = 147292;
+        int to = 147292;
+        if (from > to) {
+            throw new IllegalArgumentException("Input Error.");
+
+        }else {
+            int sum = 0;
+            while (from <= to) {
+               int num = from;
+                while (num != 0) {
+                    sum += num % 10;
+                    num /= 10;
+                }
+                from++;
+            }
+            System.out.println(Math.abs(sum));
+
+        }
+    }
+}
+
+
+Task 5** (RhombusPrinter)
+
+VERSION 1.
+public class RhombusPrinter {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter size: ");
+        int size = scanner.nextInt();
+        if (size < 0 || size % 2 == 0) {
+            throw new IllegalArgumentException("Input Error.");
+        }
+        printRhombus(size);
+    }
+
+    public static void printRhombus(int size) {
+        int center = size / 2;
+        int star;
+        for (int i = 0; i < size; i++) {
+            star = Math.abs(center - i);
+            for (int j = 0; j < size; j++) {
+                if (j == star || size - j - 1 == star) {
+                    System.out.print(" * ");
+                } else {
+                    System.out.print(" . ");
+                }
+            }
+            System.out.println();
+
+        }
+    }
